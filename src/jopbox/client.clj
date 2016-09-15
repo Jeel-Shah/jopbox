@@ -12,9 +12,9 @@
   [app-key app-secret]
   (oauth/make-consumer app-key
                        app-secret
-                       "https://api.dropbox.com/1/oauth/request_token"
-                       "https://api.dropbox.com/1/oauth/access_token"
-                       "https://www.dropbox.com/1/oauth/authorize"
+                       "https://api.dropbox.com/2/oauth/request_token"
+                       "https://api.dropbox.com/2/oauth/access_token"
+                       "https://www.dropbox.com/2/oauth/authorize"
                        :hmac-sha1))
 
 (defn fetch-request-token
@@ -53,7 +53,7 @@
 (defn account-info
   "Retrieves information about the user's account."
   [consumer access-token-response]
-  (let [request-url "https://api.dropbox.com/1/account/info"
+  (let [request-url "https://api.dropbox.com/2/account/info"
         credentials (make-credentials consumer
                                       access-token-response
                                       :GET
@@ -80,7 +80,7 @@
 (defn media
   "Returns a link directly to a file."
   [consumer access-token-response root path]
-  (let [request-url (format "https://api.dropbox.com/1/media/%s/%s"
+  (let [request-url (format "https://api.dropbox.com/2/media/%s/%s"
                             (name root)
                             path)
         credentials (make-credentials consumer
@@ -94,7 +94,7 @@
 
 (defn delta
   ([consumer access-token-response cursor]
-     (let [request-url "https://api.dropbox.com/1/delta"
+     (let [request-url "https://api.dropbox.com/2/delta"
            credentials (make-credentials consumer
                                          access-token-response
                                          :POST
@@ -128,7 +128,7 @@
   "Retrieves file or folder metadata. `root` can be either :dropbox or
   :sandbox. `path` is the path of a folder or file."
   [consumer access-token-response root path]
-  (let [request-url (format "https://api.dropbox.com/1/metadata/%s/%s"
+  (let [request-url (format "https://api.dropbox.com/2/metadata/%s/%s"
                             (name root)
                             path)
         credentials (make-credentials consumer
@@ -142,7 +142,7 @@
 (defn create-folder
   "Creates a folder at `path`. Root can be either :sandbox or :dropbox."
   [consumer access-token-response root path]
-  (let [request-url "https://api.dropbox.com/1/fileops/create_folder"
+  (let [request-url "https://api.dropbox.com/2/fileops/create_folder"
         params {:root (name root) :path path}
         credentials (make-credentials consumer
                                       access-token-response
@@ -155,7 +155,7 @@
 (defn search
   "Searches for a given query."
   [consumer access-token-response root path query]
-  (let [request-url (format "https://api.dropbox.com/1/search/%s/%s"
+  (let [request-url (format "https://api.dropbox.com/2/search/%s/%s"
                             (name root)
                             path)
         q {:query query}
